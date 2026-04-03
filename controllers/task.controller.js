@@ -116,7 +116,7 @@ export const updateTask = async (req, res) => {
     const task = await Task.findOneAndUpdate(
       {
         _id: req.params.id,
-        organizationId: req.user.organizationId, // ← tenant isolation
+        organizationId: req.user.organizationId, // tenant isolation
       },
       { title, description, status, priority, assignedTo },
       { new: true, runValidators: true }
