@@ -21,6 +21,7 @@ Production-grade multi-tenant REST API with organization signup, full tenant iso
 - **Task Management** - CRUD with pagination and task-level filters
 - **Activity Logs** - important actions are stored for audit/history
 - **Cookie Auth** - JWT stored in an httpOnly cookie
+- **Tests** - coverage for auth, core CRUD flows, and tenant isolation
 
 ---
 
@@ -39,37 +40,37 @@ Production-grade multi-tenant REST API with organization signup, full tenant iso
 
 ```text
 multi-tenant-api/
-+-- config/
-�   +-- db.js
-+-- controllers/
-�   +-- auth.controller.js
-�   +-- project.controller.js
-�   +-- task.controller.js
-�   +-- activity.controller.js
-+-- middleware/
-�   +-- auth.middleware.js
-�   +-- role.middleware.js
-+-- models/
-�   +-- organization.model.js
-�   +-- user.model.js
-�   +-- project.model.js
-�   +-- task.model.js
-�   +-- activityLog.model.js
-+-- routes/
-�   +-- auth.routes.js
-�   +-- project.routes.js
-�   +-- task.routes.js
-�   +-- activity.routes.js
-+-- utils/
-�   +-- activityLogger.js
-�   +-- pagination.js
-+-- tests/
-�   +-- auth.test.js
-�   +-- project.test.js
-�   +-- task.test.js
-�   +-- isolation.test.js
-+-- .env
-+-- server.js
+|-- config/
+|   |-- db.js
+|-- controllers/
+|   |-- auth.controller.js
+|   |-- project.controller.js
+|   |-- task.controller.js
+|   `-- activity.controller.js
+|-- middleware/
+|   |-- auth.middleware.js
+|   `-- role.middleware.js
+|-- models/
+|   |-- organization.model.js
+|   |-- user.model.js
+|   |-- project.model.js
+|   |-- task.model.js
+|   `-- activityLog.model.js
+|-- routes/
+|   |-- auth.routes.js
+|   |-- project.routes.js
+|   |-- task.routes.js
+|   `-- activity.routes.js
+|-- utils/
+|   |-- activityLogger.js
+|   `-- pagination.js
+|-- tests/
+|   |-- auth.test.js
+|   |-- project.test.js
+|   |-- task.test.js
+|   `-- isolation.test.js
+|-- .env
+`-- server.js
 ```
 
 ---
