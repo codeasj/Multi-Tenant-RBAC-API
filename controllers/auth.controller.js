@@ -9,6 +9,12 @@ const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
+const clearCookieOptions = {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+};
+
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -102,6 +108,24 @@ export const login = async (req, res) => {
         role: user.role,
         organizationId: user.organizationId,
       },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// POST /api/auth/logout
+export const logout = async (req, res) => {
+  try {
+    if (!req.cookies?.token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    res.clearCookie("token", clearCookieOptions);
+
+    res.json({
+      success: true,
+      message: "Logged out successfully",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

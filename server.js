@@ -25,6 +25,12 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/activity", activityRoutes);
 
 app.get("/", (req, res) => res.json({ status: "API running" }));
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    status: "ok",
+  });
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

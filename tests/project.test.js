@@ -5,7 +5,7 @@ import {
   registerOrg,
   inviteMember,
   createProject,
-} from "./helpers.js";
+} from "../helpers/helper.js";
 
 setupDB();
 

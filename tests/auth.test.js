@@ -1,7 +1,7 @@
 
 import request from "supertest";
 import { app } from "../server.js";
-import { setupDB, registerOrg, inviteMember } from "./helpers.js";
+import { setupDB, registerOrg, inviteMember } from "../helpers/helper.js"
 
 setupDB();
 
