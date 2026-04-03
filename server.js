@@ -1,6 +1,6 @@
-
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -12,7 +12,11 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -22,13 +26,12 @@ app.use("/api/activity", activityRoutes);
 
 app.get("/", (req, res) => res.json({ status: "API running" }));
 
-// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Internal server error" });
 });
 
-export { app }; // ← export for tests
+export { app };
 
 if (process.env.NODE_ENV !== "test") {
   connectDB().then(() => {

@@ -17,5 +17,5 @@ export const requireRole = (...roles) => {
 
 // Shorthand helpers
 export const ownerOnly = requireRole("owner");
-export const adminAndAbove = requireRole("owner", "admin");
+export const  adminAndAbove = requireRole("owner", "admin");
 export const memberAndAbove = requireRole("owner", "admin", "member");

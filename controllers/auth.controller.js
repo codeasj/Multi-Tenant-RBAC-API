@@ -1,7 +1,13 @@
-
 import Organization from "../models/organization.model.js";
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
 
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -18,20 +24,17 @@ export const registerOrg = async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // Check email exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    // Create slug from org name
     const slug = orgName
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "-")
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "");
 
-    // Check slug exists
     const existingOrg = await Organization.findOne({ slug });
     if (existingOrg) {
       return res.status(400).json({
@@ -39,7 +42,6 @@ export const registerOrg = async (req, res) => {
       });
     }
 
-    // Create org + owner user
     const organization = await Organization.create({ name: orgName, slug });
 
     const user = await User.create({
@@ -47,14 +49,14 @@ export const registerOrg = async (req, res) => {
       email,
       password,
       organizationId: organization._id,
-      role: "owner",         // first user is always owner
+      role: "owner",
     });
 
     const token = generateToken(user._id);
+    res.cookie("token", token, cookieOptions);
 
     res.status(201).json({
       success: true,
-      token,
       user: {
         id: user._id,
         name: user.name,
@@ -89,10 +91,10 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user._id);
+    res.cookie("token", token, cookieOptions);
 
     res.json({
       success: true,
-      token,
       user: {
         id: user._id,
         name: user.name,
@@ -115,7 +117,6 @@ export const inviteMember = async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // Only owner/admin can invite
     const validRoles = ["admin", "member", "viewer"];
     const assignedRole = validRoles.includes(role) ? role : "member";
 
@@ -128,7 +129,7 @@ export const inviteMember = async (req, res) => {
       name,
       email,
       password,
-      organizationId: req.user.organizationId, //same org as inviter
+      organizationId: req.user.organizationId,
       role: assignedRole,
     });
 
