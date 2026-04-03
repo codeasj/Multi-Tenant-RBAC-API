@@ -6,7 +6,7 @@ Production-grade multi-tenant REST API with organization signup, full tenant iso
 
 ## Live Demo
 
-- **API Base URL:** [Render URL here]
+- **API Base URL:** [https://multi-tenant-rbac-api.onrender.com/]
 
 ---
 
@@ -21,7 +21,6 @@ Production-grade multi-tenant REST API with organization signup, full tenant iso
 - **Task Management** - CRUD with pagination and task-level filters
 - **Activity Logs** - important actions are stored for audit/history
 - **Cookie Auth** - JWT stored in an httpOnly cookie
-- **Tests** - coverage for auth, core CRUD flows, and tenant isolation
 
 ---
 
@@ -41,34 +40,34 @@ Production-grade multi-tenant REST API with organization signup, full tenant iso
 ```text
 multi-tenant-api/
 +-- config/
-¦   +-- db.js
+ï¿½   +-- db.js
 +-- controllers/
-¦   +-- auth.controller.js
-¦   +-- project.controller.js
-¦   +-- task.controller.js
-¦   +-- activity.controller.js
+ï¿½   +-- auth.controller.js
+ï¿½   +-- project.controller.js
+ï¿½   +-- task.controller.js
+ï¿½   +-- activity.controller.js
 +-- middleware/
-¦   +-- auth.middleware.js
-¦   +-- role.middleware.js
+ï¿½   +-- auth.middleware.js
+ï¿½   +-- role.middleware.js
 +-- models/
-¦   +-- organization.model.js
-¦   +-- user.model.js
-¦   +-- project.model.js
-¦   +-- task.model.js
-¦   +-- activityLog.model.js
+ï¿½   +-- organization.model.js
+ï¿½   +-- user.model.js
+ï¿½   +-- project.model.js
+ï¿½   +-- task.model.js
+ï¿½   +-- activityLog.model.js
 +-- routes/
-¦   +-- auth.routes.js
-¦   +-- project.routes.js
-¦   +-- task.routes.js
-¦   +-- activity.routes.js
+ï¿½   +-- auth.routes.js
+ï¿½   +-- project.routes.js
+ï¿½   +-- task.routes.js
+ï¿½   +-- activity.routes.js
 +-- utils/
-¦   +-- activityLogger.js
-¦   +-- pagination.js
+ï¿½   +-- activityLogger.js
+ï¿½   +-- pagination.js
 +-- tests/
-¦   +-- auth.test.js
-¦   +-- project.test.js
-¦   +-- task.test.js
-¦   +-- isolation.test.js
+ï¿½   +-- auth.test.js
+ï¿½   +-- project.test.js
+ï¿½   +-- task.test.js
+ï¿½   +-- isolation.test.js
 +-- .env
 +-- server.js
 ```
